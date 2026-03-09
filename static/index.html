@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IS590 AI Agent</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="header-title">
+        <span class="logo">🤖</span>
+        <div>
+          <h1>IS590 AI Agent</h1>
+          <p>Calculator · Web Search · Knowledge Base</p>
+        </div>
+      </div>
+      <button id="clearBtn">Clear Chat</button>
+    </header>
+
+    <main id="chatContainer">
+      <div class="welcome">
+        <h2>How can I help you?</h2>
+        <p>Try one of these:</p>
+        <div class="chips">
+          <button class="chip" onclick="sendText('What is sqrt(144) + 15% of 200?')">🧮 Math calculation</button>
+          <button class="chip" onclick="sendText('What are the latest AI news?')">🔍 Web search</button>
+          <button class="chip" onclick="sendText('What is RAG in AI?')">📚 Knowledge base</button>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="input-row">
+        <textarea id="input" placeholder="Message the agent…" rows="1"></textarea>
+        <button id="sendBtn">Send</button>
+      </div>
+    </footer>
+  </div>
+  <script src="/app.js"></script>
+</body>
+</html>
