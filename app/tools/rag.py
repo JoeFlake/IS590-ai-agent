@@ -7,6 +7,9 @@ from langchain.tools import tool
 from langchain_chroma import Chroma
 from langchain_core.documents import Document
 from langchain_openai import OpenAIEmbeddings
+from app.logger import get_logger, log_tool_call, log_tool_error
+
+_log = get_logger("tool.rag")
 
 _vectorstore: Optional[Chroma] = None
 
@@ -54,8 +57,13 @@ def rag_search(query: str) -> str:
     try:
         docs = get_vectorstore().similarity_search(query, k=3)
         if not docs:
+            log_tool_call(_log, "rag_search", {"query": query}, "No results found.")
             return "No relevant documents found in the knowledge base."
         parts = [f"[Source: {d.metadata.get('source')}]\n{d.page_content}" for d in docs]
-        return "\n\n---\n\n".join(parts)
+        output = "\n\n---\n\n".join(parts)
+        sources = list({d.metadata.get("source") for d in docs})
+        log_tool_call(_log, "rag_search", {"query": query, "sources": sources, "num_chunks": len(docs)}, output)
+        return output
     except Exception as exc:
+        log_tool_error(_log, "rag_search", {"query": query}, str(exc))
         return f"RAG error: {exc}"

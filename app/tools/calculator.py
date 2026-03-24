@@ -2,6 +2,9 @@ import ast
 import math
 import operator
 from langchain.tools import tool
+from app.logger import get_logger, log_tool_call, log_tool_error
+
+_log = get_logger("tool.calculator")
 
 _OPERATORS = {
     ast.Add: operator.add,
@@ -56,6 +59,9 @@ def calculator(expression: str) -> str:
     try:
         tree = ast.parse(expression.strip(), mode="eval")
         result = _eval(tree.body)
-        return str(result)
+        result_str = str(result)
+        log_tool_call(_log, "calculator", {"expression": expression}, result_str)
+        return result_str
     except Exception as exc:
+        log_tool_error(_log, "calculator", {"expression": expression}, str(exc))
         return f"Error: {exc}"
