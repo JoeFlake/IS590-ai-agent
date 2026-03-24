@@ -42,30 +42,33 @@ Open [http://localhost:8000](http://localhost:8000) in your browser.
 ## Project Structure
 
 ```
+├── aiDocs/                   # AI dev infrastructure docs
+│   ├── context.md            # Project orientation for AI coding tools
+│   ├── PRD.md                # Product Requirements Document
+│   └── ROADMAP.md            # Phased roadmap with progress tracking
 ├── app/
-│   ├── main.py           # FastAPI app — SSE /chat, /clear, /health endpoints
-│   ├── agent.py          # LangChain agent (tools, prompt, AgentExecutor)
-│   ├── logger.py         # Structured JSON logger (used by all tools + server)
+│   ├── main.py               # FastAPI app — SSE /chat, /clear, /health
+│   ├── agent.py              # LangChain agent (tools, prompt, AgentExecutor)
+│   ├── logger.py             # Structured JSON logger (all tools + server)
 │   └── tools/
-│       ├── calculator.py # Safe AST-based math evaluator
-│       ├── web_search.py # Tavily web search
-│       └── rag.py        # ChromaDB vector search with source attribution
-├── docs/                 # RAG knowledge base (Markdown files)
+│       ├── calculator.py     # Safe AST-based math evaluator
+│       ├── web_search.py     # Tavily web search
+│       └── rag.py            # ChromaDB vector search with source attribution
+├── docs/                     # RAG knowledge base (auto-indexed at startup)
 │   ├── ai_concepts.md
 │   ├── python_reference.md
 │   ├── langchain_reference.md
 │   ├── fastapi_reference.md
 │   ├── machine_learning_fundamentals.md
-│   ├── prompt_engineering.md
-│   ├── PRD.md            # Product Requirements Document
-│   └── ROADMAP.md        # Phased roadmap with progress tracking
+│   └── prompt_engineering.md
+├── scripts/
+│   └── test.sh               # Smoke tests — imports, calculator, RAG, health
 ├── static/
-│   ├── index.html        # Chat UI
-│   ├── style.css         # Styles
-│   └── app.js            # SSE client, session management
-├── context.md            # Project orientation for AI coding tools
-├── .env.example          # Environment variable template
-└── requirements.txt      # Python dependencies
+│   ├── index.html            # Chat UI
+│   ├── style.css             # Styles
+│   └── app.js                # SSE client, session management
+├── .env.example              # Environment variable template
+└── requirements.txt          # Python dependencies
 ```
 
 ## How It Works
@@ -76,6 +79,14 @@ Open [http://localhost:8000](http://localhost:8000) in your browser.
 4. Tool calls are logged (JSON to stdout) and streamed as badge events to the UI
 5. The LLM's response tokens stream back in real time
 6. The full exchange is appended to the session's conversation history
+
+## Running Tests
+
+```bash
+bash scripts/test.sh
+```
+
+Checks environment config, Python imports, calculator correctness, unsafe expression blocking, RAG document count, server health (if running), and repo structure. Exit code `0` = all pass, `1` = failures.
 
 ## Adding to the Knowledge Base
 

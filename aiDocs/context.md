@@ -18,6 +18,7 @@ A multi-tool AI agent built for IS590 (AI Applications). It is a streaming chat 
 
 ## Project Structure
 ```
+aiDocs/            — AI dev infrastructure (context, PRD, roadmap)
 app/
   main.py          — FastAPI app, /chat SSE endpoint, /clear, /health
   agent.py         — LangChain agent setup (tools, prompt, AgentExecutor)
@@ -26,7 +27,9 @@ app/
     calculator.py  — Safe AST-based math evaluator (@tool)
     web_search.py  — Tavily web search (@tool)
     rag.py         — ChromaDB vector search over docs/ (@tool)
-docs/              — Markdown knowledge base files ingested by RAG
+docs/              — Markdown knowledge base files ingested by RAG at startup
+scripts/
+  test.sh          — Smoke tests: imports, calculator, RAG doc count, health
 static/
   index.html       — Chat UI
   style.css        — Styles
