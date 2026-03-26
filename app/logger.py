@@ -53,7 +53,7 @@ def log_tool_call(logger: logging.Logger, tool: str, args: dict, result: str) ->
         "tool_call",
         extra={
             "tool": tool,
-            "args": args,
+            "tool_args": args,
             "result_preview": result[:200] if result else "",
             "result_length": len(result) if result else 0,
         },
@@ -66,7 +66,7 @@ def log_tool_error(logger: logging.Logger, tool: str, args: dict, error: str) ->
         "tool_error",
         extra={
             "tool": tool,
-            "args": args,
+            "tool_args": args,
             "error": error,
         },
     )
