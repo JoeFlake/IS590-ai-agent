@@ -171,7 +171,7 @@ clearBtn.addEventListener('click', async () => {
     <div class="chips">
       <button class="chip" onclick="sendText('If a wave is 30 feet tall and I ride 4 waves a day for 7 days, how many total feet of wave have I ridden?')">🧮 Wave math, bro</button>
       <button class="chip" onclick="sendText('Who are the best surfers in the world right now?')">🌊 Who\'s shredding the most?</button>
-      <button class="chip" onclick="sendText('What is the ReAct pattern in AI agents?')">📖 Gnarly AI knowledge</button>
+      <button class="chip" onclick="sendText('What is RAG and how does it stop AI from making stuff up?')">📖 Gnarly AI knowledge</button>
     </div>`;
   chatContainer.appendChild(welcome);
 });
