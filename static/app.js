@@ -16,7 +16,6 @@ async function sendMessage() {
   const message = inputEl.value.trim();
   if (!message || isStreaming) return;
 
-  // Remove welcome screen
   const welcome = chatContainer.querySelector('.welcome');
   if (welcome) welcome.remove();
 
@@ -55,7 +54,11 @@ async function sendMessage() {
     }
   } catch (err) {
     bubble.classList.remove('cursor');
-    bubble.textContent = 'Error: ' + err.message;
+    bubble.classList.add('error-bubble');
+    bubble.textContent = '🙈 Wipeout! ' + err.message;
+    // swap avatar to peeking CJ on error
+    const avatar = bubble.closest('.message')?.querySelector('.assistant-avatar');
+    if (avatar) avatar.src = '/cj-peeking.png';
   } finally {
     bubble.classList.remove('cursor');
     isStreaming = false;
@@ -82,15 +85,18 @@ function handleEvent(data, bubble, toolArea) {
     bubble.classList.remove('cursor');
   } else if (data.type === 'error') {
     bubble.classList.remove('cursor');
-    bubble.textContent = 'Error: ' + data.content;
+    bubble.classList.add('error-bubble');
+    bubble.textContent = '🙈 Wipeout! ' + data.content;
+    const avatar = bubble.closest('.message')?.querySelector('.assistant-avatar');
+    if (avatar) avatar.src = '/cj-peeking.png';
   }
 }
 
 function toolIcon(name) {
   if (name === 'calculator') return '🧮';
-  if (name === 'web_search') return '🔍';
-  if (name === 'rag_search') return '📚';
-  return '⚙️';
+  if (name === 'web_search') return '🌊';
+  if (name === 'rag_search') return '📖';
+  return '🤙';
 }
 
 function appendUserMessage(text) {
@@ -104,10 +110,23 @@ function appendUserMessage(text) {
 function appendAssistantMessage() {
   const div = document.createElement('div');
   div.className = 'message assistant';
+
   const toolArea = document.createElement('div');
+
+  // Avatar + tool area row
+  const headerRow = document.createElement('div');
+  headerRow.className = 'assistant-header';
+  const avatar = document.createElement('img');
+  avatar.src = '/cj-dripping.png';
+  avatar.className = 'assistant-avatar';
+  avatar.alt = 'Chicken Joe';
+  headerRow.appendChild(avatar);
+  headerRow.appendChild(toolArea);
+
   const bubble = document.createElement('div');
   bubble.className = 'bubble cursor';
-  div.appendChild(toolArea);
+
+  div.appendChild(headerRow);
   div.appendChild(bubble);
   chatContainer.appendChild(div);
   scrollDown();
@@ -122,7 +141,6 @@ function scrollDown() {
   chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 
-// Auto-resize textarea
 inputEl.addEventListener('input', () => {
   inputEl.style.height = 'auto';
   inputEl.style.height = inputEl.scrollHeight + 'px';
@@ -146,6 +164,14 @@ clearBtn.addEventListener('click', async () => {
   chatContainer.innerHTML = '';
   const welcome = document.createElement('div');
   welcome.className = 'welcome';
-  welcome.innerHTML = `<h2>Chat cleared</h2><p>Start a new conversation.</p>`;
+  welcome.innerHTML = `
+    <img src="/cj-peace.png" class="welcome-img" alt="Chicken Joe peace" />
+    <h2>Wiped out, dude!</h2>
+    <p>Fresh waves ahead — ask me anything!</p>
+    <div class="chips">
+      <button class="chip" onclick="sendText('If a wave is 30 feet tall and I ride 4 waves a day for 7 days, how many total feet of wave have I ridden?')">🧮 Wave math, bro</button>
+      <button class="chip" onclick="sendText('Who are the best surfers in the world right now?')">🌊 Who\'s shredding the most?</button>
+      <button class="chip" onclick="sendText('What is the ReAct pattern in AI agents?')">📖 Gnarly AI knowledge</button>
+    </div>`;
   chatContainer.appendChild(welcome);
 });

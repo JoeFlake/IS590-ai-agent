@@ -3,38 +3,48 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IS590 AI Agent</title>
+  <title>Chicken Joe's Surf Shack</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
+  <div class="waves-bg">
+    <div class="wave wave1"></div>
+    <div class="wave wave2"></div>
+    <div class="wave wave3"></div>
+  </div>
+
   <div class="app">
     <header>
       <div class="header-title">
-        <span class="logo">🤖</span>
+        <img src="/cj-thumbsup.png" class="logo-img" alt="Chicken Joe" />
         <div>
-          <h1>IS590 AI Agent</h1>
-          <p>Calculator · Web Search · Knowledge Base</p>
+          <h1>Chicken Joe's Surf Shack</h1>
+          <p>🧮 Calculator &nbsp;·&nbsp; 🌊 Web Search &nbsp;·&nbsp; 📖 Knowledge Base</p>
         </div>
       </div>
-      <button id="clearBtn">Clear Chat</button>
+      <button id="clearBtn">🤙 Wipe Out</button>
     </header>
 
     <main id="chatContainer">
       <div class="welcome">
-        <h2>How can I help you?</h2>
-        <p>Try one of these:</p>
+        <img src="/cj-surfing.png" class="welcome-img" alt="Chicken Joe surfing" />
+        <h2>Duuude, what's up?</h2>
+        <p>Hit me with your gnarliest questions, bro</p>
         <div class="chips">
-          <button class="chip" onclick="sendText('What is sqrt(144) + 15% of 200?')">🧮 Math calculation</button>
-          <button class="chip" onclick="sendText('What are the latest AI news?')">🔍 Web search</button>
-          <button class="chip" onclick="sendText('What is RAG in AI?')">📚 Knowledge base</button>
+          <button class="chip" onclick="sendText('If a wave is 30 feet tall and I ride 4 waves a day for 7 days, how many total feet of wave have I ridden?')">🧮 Wave math, bro</button>
+          <button class="chip" onclick="sendText('Who are the best surfers in the world right now?')">🌊 Who\&#39;s shredding the most?</button>
+          <button class="chip" onclick="sendText('What is the ReAct pattern in AI agents?')">📖 Gnarly AI knowledge</button>
         </div>
       </div>
     </main>
 
     <footer>
       <div class="input-row">
-        <textarea id="input" placeholder="Message the agent…" rows="1"></textarea>
-        <button id="sendBtn">Send</button>
+        <textarea id="input" placeholder="Ask me anything, bro… 🤙" rows="1"></textarea>
+        <button id="sendBtn">Send It! 🏄</button>
       </div>
     </footer>
   </div>
